@@ -18,11 +18,31 @@ services:
     command: [ "/bin/install.sh" ]
     volumes:
       - "./install.sh:/bin/install.sh"
+      - "./bin/frontend:/bin/frontend"
       - "./consul_config/frontend_config.hcl:/config/frontend_config.hcl"
     ports:
-      - "80:80"
+      - "8080:8080"
     environment:
       - SERVICE=frontend
+      - "BIND_ADDR=0.0.0.0:8080"
+      - "BACKEND_URL=http://backend:7080"
+    depends_on:
+      - "backend"
+      - "consul_server_0"
+
+  backend:
+    image: consul:1.14.1
+    container_name: backend
+    command: [ "/bin/install.sh" ]
+    volumes:
+      - "./install.sh:/bin/install.sh"
+      - "./bin/backend:/bin/backend"
+      - "./consul_config/backend_config.hcl:/config/backend_config.hcl"
+    ports:
+      - "7080:7080"
+    environment:
+      - SERVICE=backend
+      - "BIND_ADDR=0.0.0.0:7080"
     depends_on:
       - "consul_server_0"
 
