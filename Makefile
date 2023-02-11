@@ -12,7 +12,7 @@ build:
 
 .PHONY: run
 run:
-	docker-compose up
+	docker-compose up --force-recreate
 
 getsh:
 	docker-compose exec server_0 sh
