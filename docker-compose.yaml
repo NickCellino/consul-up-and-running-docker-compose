@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  consul_server_0:
+    image: consul:1.14.1
+    container_name: server_0
+    command: [ "consul", "agent", "-config-dir=/config" ]
+    volumes:
+      - "./consul_config/server_config_0.hcl:/config/config.hcl"
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+
+  frontend:
+    image: consul:1.14.1
+    container_name: frontend
+    command: [ "/bin/install.sh" ]
+    volumes:
+      - "./install.sh:/bin/install.sh"
+      - "./consul_config/frontend_config.hcl:/config/frontend_config.hcl"
+    ports:
+      - "80:80"
+    environment:
+      - SERVICE=frontend
+    depends_on:
+      - "consul_server_0"
+
