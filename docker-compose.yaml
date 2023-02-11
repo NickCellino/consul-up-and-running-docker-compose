@@ -13,7 +13,7 @@ services:
       - "8600:8600/udp"
 
   frontend:
-    image: consul:1.14.1
+    build: .
     container_name: frontend
     command: [ "/bin/install.sh" ]
     volumes:
@@ -24,6 +24,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - SERVICE=frontend
       - "BIND_ADDR=0.0.0.0:8080"
       - "BACKEND_URL=http://backend:7080"
@@ -32,7 +33,7 @@ services:
       - "consul_server_0"
 
   backend:
-    image: consul:1.14.1
+    build: .
     container_name: backend
     command: [ "/bin/install.sh" ]
     volumes:
@@ -43,6 +44,7 @@ services:
     ports:
       - "7080:7080"
     environment:
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19001"
       - SERVICE=backend
       - "BIND_ADDR=0.0.0.0:7080"
     depends_on:

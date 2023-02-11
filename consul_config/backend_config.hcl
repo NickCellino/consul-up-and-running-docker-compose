@@ -8,5 +8,5 @@ retry_join = [
 ]
 
 ports {
-  grpc_tls = 8502
+  grpc = 8502
 }

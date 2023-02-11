@@ -5,4 +5,10 @@ service {
   meta {
     version = "v1"
   }
+
+  connect {
+    sidecar_service {
+      port = 22000
+    }
+  }
 }
