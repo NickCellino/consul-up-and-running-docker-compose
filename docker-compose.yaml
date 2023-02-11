@@ -27,7 +27,7 @@ services:
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - SERVICE=frontend
       - "BIND_ADDR=0.0.0.0:8080"
-      - "BACKEND_URL=http://backend:7080"
+      - "BACKEND_URL=http://localhost:6001"
     depends_on:
       - "backend"
       - "consul_server_0"
