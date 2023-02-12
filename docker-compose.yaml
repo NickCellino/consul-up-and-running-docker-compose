@@ -12,6 +12,22 @@ services:
       - "8600:8600/tcp"
       - "8600:8600/udp"
 
+  igw:
+    build: .
+    container_name: igw
+    command: [ "/bin/install.sh" ]
+    volumes:
+      - "./install.sh:/bin/install.sh"
+      - "./consul_config/ingress_gateway.hcl:/config/ingress_gateway.hcl"
+      - "./consul_config/ingress_gateway_config.hcl:/config/ingress_gateway_config.hcl"
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE=igw
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19002"
+    depends_on:
+      - "consul_server_0"
+
   frontend:
     build: .
     container_name: frontend
@@ -22,11 +38,11 @@ services:
       - "./consul_config/frontend_config.hcl:/config/frontend_config.hcl"
       - "./consul_config/frontend_service.hcl:/config/frontend_service.hcl"
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - SERVICE=frontend
-      - "BIND_ADDR=0.0.0.0:8080"
+      - "BIND_ADDR=0.0.0.0:8081"
       - "BACKEND_URL=http://localhost:6001"
     depends_on:
       - "backend"
