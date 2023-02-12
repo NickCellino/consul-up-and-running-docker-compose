@@ -26,7 +26,7 @@ services:
       - "8080:8080"
     environment:
       - SERVICE=igw
-      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19002"
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
     depends_on:
       - "consul_server_0"
 
@@ -39,12 +39,10 @@ services:
       - "./bin/frontend:/bin/frontend"
       - "./consul_config/frontend_config.hcl:/config/frontend_config.hcl"
       - "./consul_config/frontend_service.hcl:/config/frontend_service.hcl"
-    ports:
-      - "8081:8081"
     environment:
-      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - SERVICE=frontend
-      - "BIND_ADDR=0.0.0.0:8081"
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
+      - "BIND_ADDR=127.0.0.1:8081"
       - "BACKEND_URL=http://localhost:6001"
     depends_on:
       - "backend"
@@ -59,12 +57,10 @@ services:
       - "./bin/backend:/bin/backend"
       - "./consul_config/backend_config.hcl:/config/backend_config.hcl"
       - "./consul_config/backend_service.hcl:/config/backend_service.hcl"
-    ports:
-      - "7080:7080"
     environment:
-      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19001"
       - SERVICE=backend
-      - "BIND_ADDR=0.0.0.0:7080"
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
+      - "BIND_ADDR=127.0.0.1:7080"
     depends_on:
       - "consul_server_0"
 
