@@ -12,6 +12,9 @@ if [ $SERVICE != "igw" ]; then
 else
   consul config write /root/proxy-defaults.hcl
   consul config write /root/ingress-gateway.hcl
+  consul config write /root/deny-all-service-intentions.hcl
+  consul config write /root/backend-service-intentions.hcl
+  consul config write /root/frontend-service-intentions.hcl
 
   echo "Starting Envoy Internet Gateway..."
   consul connect envoy \
@@ -19,7 +22,6 @@ else
     -service ingress-gatway \
     -admin-bind $ENVOY_ADMIN_BIND_ADDR \
     -address 127.0.0.1:20000
-  sleep 5
 fi
 
 

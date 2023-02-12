@@ -20,6 +20,9 @@ services:
       - "./install.sh:/bin/install.sh"
       - "./config_entries/proxy-defaults.hcl:/root/proxy-defaults.hcl"
       - "./config_entries/ingress-gateway.hcl:/root/ingress-gateway.hcl"
+      - "./config_entries/deny-all-service-intentions.hcl:/root/deny-all-service-intentions.hcl"
+      - "./config_entries/backend-service-intentions.hcl:/root/backend-service-intentions.hcl"
+      - "./config_entries/frontend-service-intentions.hcl:/root/frontend-service-intentions.hcl"
       - "./consul_config/ingress_gateway.hcl:/config/ingress_gateway.hcl"
       - "./consul_config/ingress_gateway_config.hcl:/config/ingress_gateway_config.hcl"
     ports:

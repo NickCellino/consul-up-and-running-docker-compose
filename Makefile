@@ -14,6 +14,7 @@ build:
 run:
 	docker-compose up --force-recreate
 
+.PHONY: getsh
 getsh:
-	docker-compose exec server_0 sh
+	docker-compose exec server_0 bash
 
