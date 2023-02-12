@@ -18,6 +18,8 @@ services:
     command: [ "/bin/install.sh" ]
     volumes:
       - "./install.sh:/bin/install.sh"
+      - "./config_entries/proxy-defaults.hcl:/root/proxy-defaults.hcl"
+      - "./config_entries/ingress-gateway.hcl:/root/ingress-gateway.hcl"
       - "./consul_config/ingress_gateway.hcl:/config/ingress_gateway.hcl"
       - "./consul_config/ingress_gateway_config.hcl:/config/ingress_gateway_config.hcl"
     ports:

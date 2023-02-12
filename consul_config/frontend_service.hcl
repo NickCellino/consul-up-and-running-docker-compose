@@ -1,6 +1,6 @@
 service {
   name = "frontend"
-  port = 8080
+  port = 8081
 
   meta {
     version = "v1"
