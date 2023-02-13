@@ -16,6 +16,10 @@ ports {
 
 ui_config {
   enabled = true
+  metrics_provider = "prometheus"
+  metrics_proxy {
+    base_url = "http://prometheus:9090"
+  }
 }
 
 client_addr = "0.0.0.0"

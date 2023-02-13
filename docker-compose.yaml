@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  prometheus:
+    image: bitnami/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - "./prometheus/prometheus.yaml:/opt/bitnami/prometheus/conf/prometheus.yml"
+    ports:
+      - "9090:9090"
+
   consul_server_0:
     image: consul:1.14.1
     container_name: server_0
@@ -30,8 +38,6 @@ services:
     environment:
       - SERVICE=igw
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
-    depends_on:
-      - "consul_server_0"
 
   frontend:
     build: .
@@ -47,9 +53,6 @@ services:
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - "BIND_ADDR=127.0.0.1:8081"
       - "BACKEND_URL=http://localhost:6001"
-    depends_on:
-      - "backend"
-      - "consul_server_0"
 
   backend:
     build: .
@@ -64,6 +67,4 @@ services:
       - SERVICE=backend
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - "BIND_ADDR=127.0.0.1:7080"
-    depends_on:
-      - "consul_server_0"
 

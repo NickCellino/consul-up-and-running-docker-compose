@@ -2,6 +2,11 @@ service {
   name = "ingress-gateway"
   kind = "ingress-gateway"
   port = 20000
+
+  meta {
+    prometheus_port = "20200"
+  }
+
   checks = [
     {
       name = "ingress-gateway listening"
@@ -9,4 +14,10 @@ service {
       interval = "10s"
     }
   ]
+
+  proxy {
+    config {
+      envoy_prometheus_bind_addr = "0.0.0.0:20200"
+    }
+  }
 }
