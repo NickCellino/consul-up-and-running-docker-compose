@@ -10,6 +10,7 @@ if [ $SERVICE != "igw" ]; then
   nohup consul connect envoy -sidecar-for $SERVICE -admin-bind $ENVOY_ADMIN_BIND_ADDR >/tmp/envoy.out 2>&1 &
   sleep 5
 else
+  sleep 45
   consul config write /root/proxy-defaults.hcl
   consul config write /root/ingress-gateway.hcl
   consul config write /root/deny-all-service-intentions.hcl
