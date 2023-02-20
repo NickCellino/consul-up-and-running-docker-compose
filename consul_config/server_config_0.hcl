@@ -20,6 +20,9 @@ ui_config {
   metrics_proxy {
     base_url = "http://prometheus:9090"
   }
+  dashboard_url_templates {
+    service = "http://localhost:3000/d/KMdv-UJ4k/services?orgId=1&var-Service={{Service.Name}}"
+  }
 }
 
 client_addr = "0.0.0.0"

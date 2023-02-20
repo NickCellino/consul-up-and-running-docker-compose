@@ -1,6 +1,12 @@
 version: '3.8'
 
 services:
+  jaeger:
+    image: jaegertracing/all-in-one
+    command: [ "--collector.zipkin.host-port=9411" ]
+    ports:
+      - "16686:16686"
+
   grafana:
     image: grafana/grafana:latest
     ports:
@@ -58,6 +64,7 @@ services:
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - "BIND_ADDR=127.0.0.1:8081"
       - "BACKEND_URL=http://localhost:6001"
+      - "TRACING_URL=http://jaeger:9411"
 
   backend:
     build: .
@@ -72,4 +79,5 @@ services:
       - SERVICE=backend
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - "BIND_ADDR=127.0.0.1:7080"
+      - "TRACING_URL=http://jaeger:9411"
 
