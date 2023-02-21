@@ -6,12 +6,6 @@ nohup consul agent -config-dir=/config/ >/tmp/consul.out 2>&1 &
 sleep 5
 
 if [ $SERVICE == "igw" ]; then
-  consul config write /root/proxy-defaults.hcl
-  consul config write /root/ingress-gateway.hcl
-  consul config write /root/deny-all-service-intentions.hcl
-  consul config write /root/backend-service-intentions.hcl
-  consul config write /root/frontend-service-intentions.hcl
-
   echo "Starting Envoy Internet Gateway..."
   consul connect envoy \
     -gateway ingress \

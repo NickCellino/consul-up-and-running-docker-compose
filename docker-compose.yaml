@@ -25,6 +25,8 @@ services:
     container_name: server_0
     command: [ "consul", "agent", "-config-dir=/config" ]
     volumes:
+      - "./consul_server.sh:/bin/consul_server.sh"
+      - "./config_entries/proxy-defaults.hcl:/root/proxy-defaults.hcl"
       - "./consul_config/server_config_0.hcl:/config/config.hcl"
     ports:
       - "8500:8500"
@@ -80,4 +82,20 @@ services:
       - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
       - "BIND_ADDR=127.0.0.1:7080"
       - "TRACING_URL=http://jaeger:9411"
+
+  backend_v2:
+    build: .
+    container_name: backend_v2
+    command: [ "/bin/install.sh" ]
+    volumes:
+      - "./install.sh:/bin/install.sh"
+      - "./bin/backend:/bin/backend"
+      - "./consul_config/backend_config_v2.hcl:/config/backend_config_v2.hcl"
+      - "./consul_config/backend_service_v2.hcl:/config/backend_service_v2.hcl"
+    environment:
+      - SERVICE=backend
+      - "ENVOY_ADMIN_BIND_ADDR=0.0.0.0:19000"
+      - "BIND_ADDR=127.0.0.1:7080"
+      - "TRACING_URL=http://jaeger:9411"
+      - "VERSION=v2"
 
