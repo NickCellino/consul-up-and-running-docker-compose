@@ -17,4 +17,13 @@ service {
       }
     }
   }
+
+  checks = [
+    {
+      name = "Health endpoint"
+      http = "http://localhost:7080/healthz"
+      interval = "10s"
+      timeout = "1s"
+    }
+  ]
 }

@@ -3,9 +3,9 @@
 mkdir -p /opt/consul
 echo "Starting Consul..."
 nohup consul agent -config-dir=/config/ >/tmp/consul.out 2>&1 &
+sleep 5
 
 if [ $SERVICE == "igw" ]; then
-  sleep 45
   consul config write /root/proxy-defaults.hcl
   consul config write /root/ingress-gateway.hcl
   consul config write /root/deny-all-service-intentions.hcl
@@ -20,7 +20,6 @@ if [ $SERVICE == "igw" ]; then
     -address 127.0.0.1:20000
 fi
 
-sleep 50
 echo "Starting Envoy..."
 nohup consul connect envoy -sidecar-for $SERVICE -admin-bind $ENVOY_ADMIN_BIND_ADDR >/tmp/envoy.out 2>&1 &
 sleep 5
