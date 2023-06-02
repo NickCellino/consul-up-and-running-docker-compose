@@ -5,12 +5,9 @@
 This repo contains a docker-compose setup for running the Birdwatcher example from
 Chapter 3 of "Consul: Up & Running".
 
-NOTE: I've built this example to run on an M1 Macbook and currently, the `make install` step below is
-hard-coded to build ARM64 binaries.
-
 To run this example, clone the repo and run these commands from cloned directory:
 ```
-# Clone birdwatcher repo and builds binaries for Linux ARM64
+# Clone birdwatcher repo and builds binaries
 make install
 
 # Run the docker-compose cluster

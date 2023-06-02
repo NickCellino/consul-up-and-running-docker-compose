@@ -6,9 +6,9 @@ install:
 build:
 	mkdir -p bin && \
 	cd ./birdwatcher/backend && \
-	GOOS=linux GOARCH=arm64 go build -o ../../bin/backend ./... && \
+	GOOS=linux go build -o ../../bin/backend ./... && \
 	cd ../frontend && \
-	GOOS=linux GOARCH=arm64 go build -o ../../bin/frontend ./...
+	GOOS=linux go build -o ../../bin/frontend ./...
 
 .PHONY: run
 run:
