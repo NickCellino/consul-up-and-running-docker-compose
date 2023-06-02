@@ -21,11 +21,10 @@ services:
       - "9090:9090"
 
   consul_server_0:
-    image: consul:1.14.1
+    image: hashicorp/consul:1.15.3
     container_name: server_0
     command: [ "consul", "agent", "-config-dir=/config" ]
     volumes:
-      - "./consul_server.sh:/bin/consul_server.sh"
       - "./config_entries:/root/config_entries"
       - "./consul_config/server_config_0.hcl:/config/config.hcl"
     ports:

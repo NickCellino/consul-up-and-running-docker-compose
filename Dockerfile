@@ -1,5 +1,5 @@
 ARG ENVOY_IMAGE=envoyproxy/envoy:v1.24.1
-ARG CONSUL_IMAGE=hashicorp/consul:1.14.1
+ARG CONSUL_IMAGE=hashicorp/consul:1.15.3
 
 FROM ${ENVOY_IMAGE} as envoy-bin
 

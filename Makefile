@@ -16,5 +16,8 @@ run:
 
 .PHONY: getsh
 getsh:
-	docker-compose exec consul_server_0 bash
+	docker-compose exec consul_server_0 sh
 
+.PHONY: restart
+restart:
+	docker-compose restart
