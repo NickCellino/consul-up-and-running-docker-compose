@@ -1,11 +1,11 @@
 .PHONY: install
 install:
-	if [ ! -d birdwatcher ]; then git clone git@github.com:consul-up/birdwatcher.git; fi
+	git submodule update --init --recursive
 	make build
 
 build:
 	mkdir -p bin && \
-	cd birdwatcher/backend && \
+	cd ./birdwatcher/backend && \
 	GOOS=linux GOARCH=arm64 go build -o ../../bin/backend ./... && \
 	cd ../frontend && \
 	GOOS=linux GOARCH=arm64 go build -o ../../bin/frontend ./...

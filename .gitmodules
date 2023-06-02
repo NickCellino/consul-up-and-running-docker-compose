@@ -1,0 +1,3 @@
+[submodule "birdwatcher"]
+	path = birdwatcher
+	url = git@github.com:consul-up/birdwatcher.git
