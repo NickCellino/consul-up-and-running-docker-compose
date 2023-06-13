@@ -17,7 +17,7 @@ make run
 ./configure_consul.sh
 
 # All set! You can check out the following in your browser:
-# Consul UI: localhost:8500
+# Consul UI: localhost:18500
 # Birdwatcher app: localhost:8080
 ```
 

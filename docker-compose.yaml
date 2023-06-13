@@ -28,9 +28,12 @@ services:
       - "./config_entries:/root/config_entries"
       - "./consul_config/server_config_0.hcl:/config/config.hcl"
     ports:
-      - "8500:8500"
-      - "8600:8600/tcp"
-      - "8600:8600/udp"
+      - "18500:8500"
+      - "18501:8501"
+      - "18502:8502"
+      - "18503:8503"
+      - "18600:8600/tcp"
+      - "18600:8600/udp"
 
   igw:
     build: .
